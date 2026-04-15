@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="knightGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#81b64c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4e7837;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" rx="12" fill="#1a1917" />
+
+  <!-- Brand mark icon -->
+  <rect x="494" y="72" width="56" height="56" rx="12" fill="url(#knightGradient)" />
+  <text x="522" y="113" font-family="system-ui, -apple-system, sans-serif" font-size="36" text-anchor="middle" fill="white">♞</text>
+
+  <!-- Brand name -->
+  <text x="566" y="111" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="600" fill="#e8e6e3">echecs</text>
+
+  <!-- Tagline -->
+  <text x="600" y="152" font-family="system-ui, -apple-system, sans-serif" font-size="16" text-anchor="middle" fill="#9b9895">Build chess apps with confidence</text>
+
+  <!-- Stat card: 23 / PACKAGES -->
+  <rect x="264" y="178" width="160" height="72" rx="8" fill="#262522" stroke="#3d3c3a" stroke-width="1" />
+  <text x="344" y="212" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#81b64c">23</text>
+  <text x="344" y="233" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle" fill="#6b6966" letter-spacing="0.05em">PACKAGES</text>
+
+  <!-- Stat card: 0 / DEPENDENCIES -->
+  <rect x="520" y="178" width="160" height="72" rx="8" fill="#262522" stroke="#3d3c3a" stroke-width="1" />
+  <text x="600" y="212" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#81b64c">0</text>
+  <text x="600" y="233" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle" fill="#6b6966" letter-spacing="0.05em">DEPENDENCIES</text>
+
+  <!-- Stat card: FIDE / COMPLIANT -->
+  <rect x="776" y="178" width="160" height="72" rx="8" fill="#262522" stroke="#3d3c3a" stroke-width="1" />
+  <text x="856" y="212" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#81b64c">FIDE</text>
+  <text x="856" y="233" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle" fill="#6b6966" letter-spacing="0.05em">COMPLIANT</text>
+
+  <!-- Accent line -->
+  <rect x="480" y="278" width="240" height="2" rx="1" fill="#81b64c" opacity="0.4" />
+</svg>
