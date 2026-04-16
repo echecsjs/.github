@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>echecs — TypeScript Chess Libraries</title>
+    <meta
+      name="description"
+      content="23 TypeScript chess libraries following FIDE rules. Strict types, zero dependencies, ESM-only."
+    />
+    <meta property="og:title" content="echecs — TypeScript Chess Libraries" />
+    <meta
+      property="og:description"
+      content="Build chess apps with confidence. 23 packages, zero compromises."
+    />
+    <meta property="og:url" content="https://echecs.dev" />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9816;</text></svg>"
+    />
+    <style>
+      :root {
+        --bg-primary: #1a1917;
+        --bg-card: #262522;
+        --bg-elevated: #2c2b29;
+        --border: #3d3c3a;
+        --text-primary: #e8e6e3;
+        --text-muted: #9b9895;
+        --text-dim: #6b6966;
+        --accent: #81b64c;
+        --accent-dark: #4e7837;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 100px 0 80px;
+      }
+
+      .hero-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .hero-brand-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        flex-shrink: 0;
+      }
+
+      .hero-brand-name {
+        font-size: 40px;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -1px;
+      }
+
+      .hero-tagline {
+        font-size: 18px;
+        color: var(--text-muted);
+        margin-bottom: 40px;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .stat-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        letter-spacing: 0.05em;
+      }
+
+      .hero-ctas {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--bg-primary);
+        border: 1px solid var(--accent);
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+        text-decoration: none;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+
+      .btn-ghost:hover {
+        border-color: var(--accent);
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+
+      /* Packages */
+      .packages {
+        padding: 64px 0;
+      }
+
+      .category {
+        margin-bottom: 48px;
+      }
+
+      .category-heading {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+      }
+
+      .package-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-name {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-primary);
+      }
+
+      .card-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 6px;
+        flex: 1;
+      }
+
+      .card-links {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-top: 12px;
+      }
+
+      .card-links a {
+        color: var(--text-dim);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .card-links a:hover {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* Code example */
+      .code-section {
+        padding: 64px 0;
+        text-align: center;
+      }
+
+      .code-section h2 {
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
+
+      .code-section .subtitle {
+        font-size: 16px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+      }
+
+      .code-block {
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 24px;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+        overflow-x: auto;
+      }
+
+      .code-block pre {
+        font-family: 'SF Mono', Menlo, Consolas, monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-primary);
+      }
+
+      .kw {
+        color: var(--accent);
+      }
+
+      .str {
+        color: #ce9178;
+      }
+
+      .cm {
+        color: var(--text-dim);
+      }
+
+      .fn {
+        color: #dcdcaa;
+      }
+
+      .num {
+        color: #b5cea8;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .footer-license {
+        font-size: 13px;
+        color: var(--text-dim);
+        margin-bottom: 12px;
+      }
+
+      .footer-links {
+        font-size: 13px;
+        color: var(--text-dim);
+      }
+
+      .footer-links a {
+        color: var(--text-dim);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .package-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 60px 0 48px;
+        }
+
+        .hero-brand-name {
+          font-size: 32px;
+        }
+
+        .hero-tagline {
+          font-size: 16px;
+        }
+
+        .hero-stats {
+          gap: 28px;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .package-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-brand">
+          <div class="hero-brand-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M7 21h10v-1l-1-1v-1c0-1.1-.5-2-1.3-2.6L16 12l1-1V8l-1-2-2-1H9L7 6 6 8v3l1 1 1.3 3.4C7.5 16 7 16.9 7 18v1l-1 1v1z"
+                fill="#1a1917"
+                stroke="#1a1917"
+                stroke-width="0.5"
+              />
+              <path
+                d="M9 6c0-1.1.9-2 2-2h.5C12.9 4 14 5.1 14 6.5c0 .8-.4 1.5-1 2l1.5 3.5H9.5L11 8.5C10.4 8 9 7.3 9 6z"
+                fill="#1a1917"
+              />
+            </svg>
+          </div>
+          <span class="hero-brand-name">echecs</span>
+        </div>
+        <p class="hero-tagline">
+          Build chess apps with confidence. 23 packages, zero compromises.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">23</span>
+            <span class="stat-label">Packages</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">0</span>
+            <span class="stat-label">Dependencies</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">FIDE</span>
+            <span class="stat-label">Compliant</span>
+          </div>
+        </div>
+        <div class="hero-ctas">
+          <a
+            href="https://www.npmjs.com/org/echecs"
+            class="btn btn-primary"
+            >Get Started</a
+          >
+          <a
+            href="https://github.com/echecsjs"
+            class="btn btn-ghost"
+            >View on GitHub</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Packages -->
+    <section class="packages">
+      <div class="container">
+        <!-- Core -->
+        <div class="category">
+          <h2 class="category-heading">Core</h2>
+          <div class="package-grid">
+            <div class="card">
+              <div class="card-name">@echecs/position</div>
+              <div class="card-desc">Chess position type and board utilities</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/position">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://position.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/position">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/fen</div>
+              <div class="card-desc">Parse and stringify FEN chess positions</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/fen">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/fen">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/san</div>
+              <div class="card-desc">Parse, resolve, and stringify SAN moves</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/san">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/san">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/pgn</div>
+              <div class="card-desc">PGN parser with comments, variations, and NAGs</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/pgn">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/pgn">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/game</div>
+              <div class="card-desc">Legal move generation, undo/redo, game-state detection</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/game">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://game.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/game">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/zobrist</div>
+              <div class="card-desc">Polyglot standard Zobrist hash keys</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/zobrist">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/zobrist">github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engine -->
+        <div class="category">
+          <h2 class="category-heading">Engine</h2>
+          <div class="package-grid">
+            <div class="card">
+              <div class="card-name">@echecs/uci</div>
+              <div class="card-desc">UCI engine wrapper for Stockfish and others</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/uci">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://uci.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/uci">github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ratings -->
+        <div class="category">
+          <h2 class="category-heading">Ratings</h2>
+          <div class="package-grid">
+            <div class="card">
+              <div class="card-name">@echecs/elo</div>
+              <div class="card-desc">ELO rating system following FIDE rules</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/elo">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://elo.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/elo">github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tournaments -->
+        <div class="category">
+          <h2 class="category-heading">Tournaments</h2>
+          <div class="package-grid">
+            <div class="card">
+              <div class="card-name">@echecs/swiss</div>
+              <div class="card-desc">Swiss pairing and standings following FIDE rules</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/swiss">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://swiss.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/swiss">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/round-robin</div>
+              <div class="card-desc">Round-robin pairings following FIDE Berger tables</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/round-robin">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/round-robin">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/tournament</div>
+              <div class="card-desc">Stateful tournament orchestrator for any FIDE system</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/tournament">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://tournament.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/tournament">github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tiebreaks -->
+        <div class="category">
+          <h2 class="category-heading">Tiebreaks</h2>
+          <div class="package-grid">
+            <div class="card">
+              <div class="card-name">@echecs/buchholz</div>
+              <div class="card-desc">Buchholz tiebreak family (Cut, Median, Average, Fore)</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/buchholz">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/buchholz">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/sonneborn-berger</div>
+              <div class="card-desc">Sonneborn-Berger tiebreak</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/sonneborn-berger">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/sonneborn-berger">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/progressive</div>
+              <div class="card-desc">Progressive score tiebreak</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/progressive">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/progressive">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/koya</div>
+              <div class="card-desc">Koya tiebreak for round-robin tournaments</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/koya">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/koya">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/direct-encounter</div>
+              <div class="card-desc">Direct encounter tiebreak</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/direct-encounter">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/direct-encounter">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/number-of-wins</div>
+              <div class="card-desc">Win-counting tiebreaks (Wins, Black Wins, Standard Points)</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/number-of-wins">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/number-of-wins">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/average-rating</div>
+              <div class="card-desc">Average Rating of Opponents tiebreak</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/average-rating">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/average-rating">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/performance-rating</div>
+              <div class="card-desc">Performance rating tiebreaks (TPR, Perfect TPR)</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/performance-rating">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/performance-rating">github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UI -->
+        <div class="category">
+          <h2 class="category-heading">UI</h2>
+          <div class="package-grid">
+            <div class="card">
+              <div class="card-name">@echecs/react-board</div>
+              <div class="card-desc">React chessboard with drag &amp; drop and animation</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/react-board">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://react-board.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/react-board">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/react-movesheet</div>
+              <div class="card-desc">Move notation panel with click nav and variations</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/react-movesheet">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/react-movesheet">github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- File Formats -->
+        <div class="category">
+          <h2 class="category-heading">File Formats</h2>
+          <div class="package-grid">
+            <div class="card">
+              <div class="card-name">@echecs/trf</div>
+              <div class="card-desc">FIDE Tournament Report File parser</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/trf">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://trf.echecs.dev">docs</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/trf">github</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-name">@echecs/tunx</div>
+              <div class="card-desc">SwissManager TUNX binary file parser/serializer</div>
+              <div class="card-links">
+                <a href="https://www.npmjs.com/package/@echecs/tunx">npm</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/echecsjs/tunx">github</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Example -->
+    <section class="code-section">
+      <div class="container">
+        <h2>Clean APIs, strict types</h2>
+        <p class="subtitle">Every package is TypeScript-first with full type inference</p>
+        <div class="code-block">
+          <pre><code><span class="kw">import</span> { expected, update } <span class="kw">from</span> <span class="str">'@echecs/elo'</span>;
+
+<span class="cm">// Two players both rated 1400. Player A wins.</span>
+<span class="kw">const</span> [playerA, playerB] = <span class="fn">update</span>(<span class="num">1400</span>, <span class="num">1400</span>, <span class="num">1</span>);
+
+<span class="fn">console.log</span>(playerA); <span class="cm">// 1410</span>
+<span class="fn">console.log</span>(playerB); <span class="cm">// 1390</span>
+
+<span class="cm">// Win probability</span>
+<span class="kw">const</span> probability = <span class="fn">expected</span>(<span class="num">1400</span>, <span class="num">1800</span>);
+
+<span class="fn">console.log</span>(probability); <span class="cm">// 0.09</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p class="footer-license">MIT License</p>
+        <p class="footer-links">
+          <a href="https://github.com/echecsjs">GitHub</a>
+          &nbsp;·&nbsp;
+          <a href="https://www.npmjs.com/org/echecs">npm</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/echecsjs/.github/blob/main/CONTRIBUTING.md">Contributing</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
