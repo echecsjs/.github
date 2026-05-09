@@ -11,7 +11,7 @@ Please **do not** open a public GitHub issue for security vulnerabilities.
 Instead, report them privately via the repository's
 [GitHub Security Advisories](https://docs.github.com/en/code-security/security-advisories/working-with-repository-security-advisories/creating-a-repository-security-advisory).
 
-You can also reach the maintainer directly at **adrian@delarosab.me**.
+You can also reach the maintainer directly at **info@echecs.dev**.
 
 ### What to include
 
