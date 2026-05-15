@@ -24,6 +24,7 @@
 | [`@echecs/pgn`](https://github.com/echecsjs/pgn) | PGN parser with comments, variations, NAGs, and annotations | [![npm](https://img.shields.io/npm/v/@echecs/pgn)](https://www.npmjs.com/package/@echecs/pgn) | [docs](https://pgn.echecs.dev) |
 | [`@echecs/game`](https://github.com/echecsjs/game) | Chess game engine with legal move generation and undo/redo | [![npm](https://img.shields.io/npm/v/@echecs/game)](https://www.npmjs.com/package/@echecs/game) | [docs](https://game.echecs.dev) |
 | [`@echecs/zobrist`](https://github.com/echecsjs/zobrist) | Polyglot standard Zobrist hash keys for chess positions | [![npm](https://img.shields.io/npm/v/@echecs/zobrist)](https://www.npmjs.com/package/@echecs/zobrist) | [docs](https://zobrist.echecs.dev) |
+| [`@echecs/polyglot`](https://github.com/echecsjs/polyglot) | Read and query Polyglot opening book (.bin) files | [![npm](https://img.shields.io/npm/v/@echecs/polyglot)](https://www.npmjs.com/package/@echecs/polyglot) | [docs](https://polyglot.echecs.dev) |
 
 ### Engine
 
